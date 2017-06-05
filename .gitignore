@@ -9,6 +9,20 @@ buildNumber.properties
 .mvn/timing.properties
 .DS_Store
 
+.idea/
+
+## File-based project format:
+*.iws
+*.iml
+*.ipr
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
