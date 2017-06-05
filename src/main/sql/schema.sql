@@ -42,4 +42,25 @@ KEY idx_create_time(create_time)
 
 
 
+select
+  sk.seckill_id,
+  sk.user_phone,
+  sk.create_time,
+  sk.state,
+  s.seckill_id "seckill.seckill_id",
+  s.name "seckill.name",
+  s.number "seckill.number",
+  s.start_time "seckill.start_time",
+  s.end_time "seckill.end_time",
+  s.create_time  "seckill.create_time"
+from success_killed sk
+  inner join seckill s on sk.seckill_id = s.seckill_id
+where sk.seckill_id = 1000 and sk.user_phone=13888888888;
 
+
+select
+ *
+from success_killed sk
+inner join seckill s
+on sk.seckill_id = s.seckill_id
+where sk.seckill_id = 1000 and sk.user_phone=13888888888;
