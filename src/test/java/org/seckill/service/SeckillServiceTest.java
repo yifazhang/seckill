@@ -33,21 +33,21 @@ public class SeckillServiceTest {
     @Test
     public void getSeckillList() throws Exception {
         List<Seckill> list = seckillService.getSeckillList();
-        logger.info("list={}",list);
+        logger.info("list={}", list);
     }
 
     @Test
     public void getById() throws Exception {
         long id = 1000;
         Seckill seckill = seckillService.getById(id);
-        logger.info("seckill={}",seckill);
+        logger.info("seckill={}", seckill);
     }
 
     @Test
     public void exportSeckillUrl() throws Exception {
         long id = 1000;
         Exposer exposer = seckillService.exportSeckillUrl(id);
-        logger.info("exposer={}",exposer);
+        logger.info("exposer={}", exposer);
         // Exposer{
         // exposed=true,
         // md5='3a3c61b1a5c9bd86a9f2df688479d872',
@@ -62,12 +62,12 @@ public class SeckillServiceTest {
         long id = 1001;
         Exposer exposer = seckillService.exportSeckillUrl(id);
         if (exposer.isExposed()) {
-            logger.info("exposer={}",exposer);
+            logger.info("exposer={}", exposer);
             long phone = 13211111111L;
             String md5 = exposer.getMd5();
             try {
-                SeckillExecution execution = seckillService.executeSeckill(id,phone,md5);
-                logger.info("result={}",execution);
+                SeckillExecution execution = seckillService.executeSeckill(id, phone, md5);
+                logger.info("result={}", execution);
             } catch (RepeatKillException e1) {
                 logger.error(e1.getMessage());
             } catch (SeckillCloseException e2) {
@@ -75,7 +75,7 @@ public class SeckillServiceTest {
             }
         } else {
             //秒杀未开启
-            logger.warn("exposer={}",exposer);
+            logger.warn("exposer={}", exposer);
         }
 
     }
@@ -86,13 +86,26 @@ public class SeckillServiceTest {
             long id = 1000;
             long phone = 13211111111L;
             String md5 = "3a3c61b1a5c9bd86a9f2df688479d872";
-            SeckillExecution execution = seckillService.executeSeckill(id,phone,md5);
-            logger.info("execution={}",execution);
+            SeckillExecution execution = seckillService.executeSeckill(id, phone, md5);
+            logger.info("execution={}", execution);
         } catch (RepeatKillException e1) {
             logger.error(e1.getMessage());
         } catch (SeckillCloseException e2) {
             logger.error(e2.getMessage());
         }
+    }
+
+    @Test
+    public void executeSeckillProcedure() throws Exception {
+        long seckillId = 1001;
+        long phone = 13112341111L;
+        Exposer exposer = seckillService.exportSeckillUrl(seckillId);
+        if (exposer.isExposed()) {
+            String md5 = exposer.getMd5();
+            SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);
+            logger.info(execution.getStateInfo());
+        }
+
     }
 
 }
